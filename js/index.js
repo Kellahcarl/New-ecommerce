@@ -121,6 +121,14 @@ function updateCartPrice() {
     discount = quantity*0.1
     net_total = total - discount;
   }
+  if(quantity >=25 &&quantity <50 ){
+    discount = quantity*0.25
+    net_total = total - discount;
+  }
+  if(quantity >=50 ){
+    discount = quantity*0.5
+    net_total = total - discount;
+  }
     
   }
   document.getElementsByClassName('total-price')[0].innerText =  '$' + total

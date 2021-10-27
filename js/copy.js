@@ -35,6 +35,7 @@ for (let i = 0; i < addToCart.length; i++) {
 }
 
 function addToCartClicked (event) {
+  let grandTotal = 0;
   button = event.target;
   let cartItem = button.parentElement;
   let price = cartItem.getElementsByClassName('product-price')[0].innerText;
@@ -42,6 +43,12 @@ function addToCartClicked (event) {
   let imageSrc = cartItem.getElementsByClassName('product-image')[0].src;
   addItemToCart (price, imageSrc);
   updateCartPrice()
+  const a =document.getElementsByClassName("cart-price");
+for(let i = 0; i<a.length;i++){
+grandTotal += Number(a[i].innerText.replace('$', ''));
+console.log(grandTotal)
+
+}
 }
 
 function addItemToCart (price, imageSrc) {
@@ -107,19 +114,49 @@ function changeQuantity(event) {
 // update total price
 function updateCartPrice() {
   let total = 0
+  let discount =0
+  let total_with_discount=0
+  
   for (var i = 0; i < productRow.length; i += 2) {
     cartRow = productRow[i]
   let priceElement = cartRow.getElementsByClassName('cart-price')[0]
   let quantityElement = cartRow.getElementsByClassName('product-quantity')[0]
   let price = parseFloat(priceElement.innerText.replace('$', ''))
   let quantity = quantityElement.value
-  total = total + (price * quantity )
+
+    if(quantity >=50){
+      total = price*quantity;
+      discount = quantity*0.5;
+      discount =discount.toFixed(2)
+      total_with_discount = total-discount;
+    }else if(quantity >=25 && quantity<50){
+      total = price*quantity;
+      discount = quantity*0.25;
+      discount =discount.toFixed(2)
+      total_with_discount = total-discount;
+    }else if(quantity >=10 && quantity<25 ){
+      total = price*quantity;
+      discount = quantity*0.1;
+      discount =discount.toFixed(2)
+      total_with_discount = total-discount;
+    } else {
+    total = price * quantity ;
+    total_with_discount=total;
+    }
+
+  // console.log(discount, total, total_with_discount)
     
   }
   document.getElementsByClassName('total-price')[0].innerText =  '$' + total
+  document.getElementsByClassName('total-discount')[0].innerText =  '$' + discount
+  document.getElementsByClassName('net-total-price')[0].innerText =  '$' + total_with_discount
+  
+  
 
 document.getElementsByClassName('cart-quantity')[0].textContent = i /= 2
 }
+
+
 // end of update total price
 
 // purchase items

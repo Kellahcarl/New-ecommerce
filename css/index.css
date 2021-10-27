@@ -193,6 +193,13 @@ img {
   color: white;
 }
 
+.cart-discount {
+  color: rgb(44, 223, 16);
+}
+.cart-net-total {
+  color: rgb(162, 245, 8);
+}
+
 .total-price {
   color: red;
   font-size: 2rem;

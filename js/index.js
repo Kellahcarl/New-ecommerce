@@ -107,6 +107,8 @@ function changeQuantity(event) {
 // update total price
 function updateCartPrice() {
   let total = 0
+  let net_total =0
+  let discount = 0
   for (var i = 0; i < productRow.length; i += 2) {
     cartRow = productRow[i]
   let priceElement = cartRow.getElementsByClassName('cart-price')[0]
@@ -114,9 +116,16 @@ function updateCartPrice() {
   let price = parseFloat(priceElement.innerText.replace('$', ''))
   let quantity = quantityElement.value
   total = total + (price * quantity )
+  net_total=total
+  if(quantity >=10 &&quantity <25 ){
+    discount = quantity*0.1
+    net_total = total - discount;
+  }
     
   }
   document.getElementsByClassName('total-price')[0].innerText =  '$' + total
+  document.getElementsByClassName('net-total-price')[0].innerText =  '$' + net_total.toFixed(2)
+  document.getElementsByClassName('total-discount')[0].innerText =  '$' + discount.toFixed(2)
 
 document.getElementsByClassName('cart-quantity')[0].textContent = i /= 2
 }
